@@ -215,11 +215,7 @@ new Color(GetComponent<SpriteRenderer>().color.r, GetComponent<SpriteRenderer>()
             
         }
 
-        if (PrefsName.Length > 0)
-        {
-            for (int i = 0; i < PrefsName.Length; i++)
-                PlayerPrefs.SetInt(PrefsName[i], PrefsINT[i]);
-        }
+    
         if (clips.Length > 0)
         {
             if (clips.Length > 0 && Clicked)
