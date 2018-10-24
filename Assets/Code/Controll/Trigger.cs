@@ -17,8 +17,11 @@ public class Trigger : MonoBehaviour {
 
     public SpriteRenderer[] SPRT;
     public bool[] SPRTBools;
+    public bool Destory = false;
+
     public bool SelfTransperent = false;
     private bool SelfTransperentStart = false;
+
     private float SelfTransperentFloat = 1;
 
     public bool ConnectBoxToSPRT = false;
@@ -48,7 +51,9 @@ public class Trigger : MonoBehaviour {
     public bool DayPlus;
     public bool NoEnter;
     public bool StopPlayer;
-   
+    private int CorrentSprt;
+    public Sprite[] Sprites;
+
 
     public string LoadLocationDayEnd = "-1";
 
@@ -138,7 +143,11 @@ new Color(GetComponent<SpriteRenderer>().color.r, GetComponent<SpriteRenderer>()
 	}
     void AllActions()
     {
-
+        if (Sprites.Length > 0)
+        {
+            CorrentSprt++;
+            if (CorrentSprt >= Sprites.Length) CorrentSprt = 0;
+        }
         if (SelfTransperent) SelfTransperentStart = true;
         if (AddedItem > -1) inv.AddItem(AddedItem, AddedItemNum);
         if (DayPlus)
@@ -240,6 +249,15 @@ new Color(GetComponent<SpriteRenderer>().color.r, GetComponent<SpriteRenderer>()
                 if (SPRT[i] != null)
                 {
                     SPRT[i].enabled = SPRTBools[i];
+                    if (Destory&& SPRTBools[i])
+                    {
+                        Destroy(SPRT[i].gameObject);
+                    }
+
+
+                   if (Sprites.Length>0)
+                   SPRT[i].sprite = Sprites[CorrentSprt];
+
                     if (ConnectBoxToSPRT && SPRT[i].GetComponent<BoxCollider2D>() != null)
                         SPRT[i].GetComponent<BoxCollider2D>().enabled = SPRTBools[i];
 
